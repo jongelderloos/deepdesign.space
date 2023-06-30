@@ -22,5 +22,5 @@ def dedup_image(directories):
                 os.unlink("{}/{}".format(label,image))
 
 if __name__=="__main__":
-    directories=['Bohemian','Coastal','Industrial','Scandinavian']
+    directories=['Bohemian','Coastal','Industrial','Scandinavian','Rustic']
     dedup_image(directories)

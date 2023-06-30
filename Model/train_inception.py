@@ -11,6 +11,7 @@ import numpy as np
 
 def feature_extraction_InV3(img_width, img_height,
                         train_data_dir,
+                        num_categories,
                         num_image,
                         epochs):
     base_model = InceptionV3(input_shape=(299, 299, 3),
@@ -28,7 +29,8 @@ def feature_extraction_InV3(img_width, img_height,
     shuffle=False)
 
     y_train=train_generator.classes
-    y_train1 = np.zeros((num_image, 4))
+    print('ytrain ' + str(len(y_train)))
+    y_train1 = np.zeros((num_image, num_categories))
     y_train1[np.arange(num_image), y_train] = 1
 
     train_generator.reset
@@ -38,16 +40,19 @@ def feature_extraction_InV3(img_width, img_height,
 
 def train_last_layer(img_width, img_height,
                         train_data_dir,
+                        num_categories,
                         num_image,
                         epochs = 50):
     X_train,y_train,model=feature_extraction_InV3(img_width, img_height,
                             train_data_dir,
+                            num_categories,
                             num_image,
                             epochs)
+    print('ytrain ' + str(len(y_train)))
     my_model = Sequential()
     my_model.add(BatchNormalization(input_shape=X_train.shape[1:]))
     my_model.add(Dense(1024, activation = "relu"))
-    my_model.add(Dense(4, activation='softmax'))
+    my_model.add(Dense(num_categories, activation='softmax'))
     my_model.compile(optimizer="SGD", loss='categorical_crossentropy',metrics=['accuracy'])
     #early = EarlyStopping(monitor='val_loss', min_delta=0, patience=10, verbose=1, mode='auto')
     my_model.fit(X_train, y_train,epochs=18,batch_size=30,verbose=1)
@@ -57,10 +62,11 @@ if __name__=="__main__":
     img_width=299
     img_height = 299
     train_data_dir = "../image_data"
-    num_image=1800
+    num_categories=5
+    num_image=2192
     epochs = 10
     model=train_last_layer(img_width, img_height,
-                            train_data_dir,
+                            train_data_dir, num_categories,
                             num_image,epochs)
 
-    model.save('inV3_last_layer.h5')
+    model.save('inV3_last_layer_2.h5')

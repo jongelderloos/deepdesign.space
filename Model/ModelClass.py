@@ -35,7 +35,7 @@ class inception_retrain(object):
 
     def _load_model(self):
         if self.model is None:
-            self.model=load_model('inV3_last_layer.h5')
+            self.model=load_model('inV3_last_layer_2.h5')
         if self.InV3model is None:
             self.InV3model=load_model("inception.h5")
 
@@ -46,5 +46,5 @@ class inception_retrain(object):
         image=self._feature_extraction_inception(img)
         self.img=image
         pred=self.model.predict(image)
-        pred=np.round(pred,3).reshape(4,)
-        return pred[0],pred[1],pred[2],pred[3]
+        pred=np.round(pred,3).reshape(5,)
+        return pred[0],pred[1],pred[2],pred[3],pred[4]

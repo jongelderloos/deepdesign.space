@@ -25,8 +25,8 @@ def get_image():
     photo = file_object.read()
     if model is None:
         model=inception_retrain()
-    pred1,pred2,pred3,pred4 = model.predict(photo)
-    Predictions.update({'Bohemian':'{:.1%}'.format(pred1),'Coastal':'{:.1%}'.format(pred2),'Industrial':'{:.1%}'.format(pred3),'Scandinavian':'{:.1%}'.format(pred4)})
+    pred1,pred2,pred3,pred4,pred5 = model.predict(photo)
+    Predictions.update({'Bohemian':'{:.1%}'.format(pred1),'Coastal':'{:.1%}'.format(pred2),'Industrial':'{:.1%}'.format(pred3),'Rustic':'{:.1%}'.format(pred4),'Scandinavian':'{:.1%}'.format(pred5)})
 
     return jsonify(Predictions)
 
@@ -35,4 +35,4 @@ def get_image():
 #     n,r=int(user_data['n'])
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', threaded=True)
+    app.run(host='0.0.0.0', port=5002, threaded=True)

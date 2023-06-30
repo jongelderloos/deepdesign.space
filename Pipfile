@@ -1,0 +1,26 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+jsonpickle = "*"
+numpy = "*"
+pillow = "*"
+scikit-learn = "*"
+keras = "*"
+tensorflow = "*"
+opencv-python = "*"
+selenium = "*"
+boto3 = "*"
+imagehash = "*"
+timm = "*"
+torch = "*"
+onnx = "*"
+onnx-tf = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
